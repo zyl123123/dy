@@ -1,31 +1,37 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+       <!-- 首页 -->
+        <!-- 头部 -->
+        <div class="header">
+            <div>
+            <img width="48px" height="22px" src="./assets/logo.png" alt>
+            </div>
+        </div>
+        <div style="height:47px"></div>
     </div>
     <router-view/>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<style scoped>
+*{
+  margin: 0;
+  padding: o;
+  list-style: none;
 }
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.header {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 18px;
+  background: #fff;
+  height: 47px;
+  box-sizing: border-box;
+  display: flex;
+  z-index: 100;
 }
 </style>
