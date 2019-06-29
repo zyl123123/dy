@@ -2,38 +2,38 @@
     <div class="over">
         <!-- 电影图片 -->
         <div style="position:relative">
-            <div class='detil-container'  v-if="detail.images" :style="{backgroundImage:'url(' + getImages(detail.images.large)+ ')' }"></div>
+            <div class='detil-container' :style="{backgroundImage:'url(' + getImages(detail[0])+ ')' }"></div>
             <div class='detail-mask'></div>
         
             <!-- 电影介绍 -->
             <div class='detail-info'>
-                <img v-if="detail.images" :src='getImages(detail.images.large)' class='detail-img'>
+                <img :src='getImages(detail[0])' class='detail-img'>
                 <div class='detail'>
                     <!-- 电影标题 -->
-                    <div class='detail-nm van-ellipsis'>{{detail.title}}</div>
+                    <div class='detail-nm van-ellipsis'>{{detail[1]}}</div>
                     <!-- 电影原标题 -->
-                    <div class="van-ellipsis">{{detail.original_title}}</div>
+                    <div class="van-ellipsis">{{detail[2]}}</div>
                     <!-- 电影打分 -->
-                    <div class='detail-sc' v-if="detail.rating">{{detail.rating.average}}分</div>
+                    <div class='detail-sc'>{{detail[3]}}分</div>
                     <!-- 产地 -->
-                    <div v-if="detail.countries">{{detail.countries[0]}}</div>
+                    <div>{{detail[4]}}</div>
                     <!-- 电影导演 -->
-                    <div v-if="detail.directors">导演:{{detail.directors[0].name}}</div>
-                    <div v-if="detail.durations" class="van-ellipsis">{{detail.durations[0]}}/<span v-for="(i,index) in detail.genres" :key="index">{{i}}/</span></div>
+                    <div>导演:{{detail[5]}}</div>
+                    <div class="van-ellipsis">{{detail[6]}}/<span v-for="(i,index) in detail[7]" :key="index">{{i}}/</span></div>
                 </div>
             </div>
         </div>
         <!-- 电影描述 -->
         <div class="detail-desc">
             <h2 class="detail-h2">剧情简介</h2>
-            <div class='desc' :class="btnType?'overflow':''">{{detail.summary}}</div>
+            <div class='desc' :class="btnType?'overflow':''">{{detail[8]}}</div>
             <span class="span" @click="btnType=!btnType">({{btnType?'展开':'收起'}})</span>
         </div>
         <!-- 影人 -->
         <div class="filmmaker detail-desc">
             <h2 class="detail-h2">影人</h2>
             <ul class="items">
-                <li v-for="(item,index) in detail.casts" :key="index">
+                <li v-for="(item,index) in detail[9]" :key="index">
                     <img width="100%" :src="getImages(item.avatars.small)" alt="">
                     <p>{{item.name}}</p>
                 </li>
@@ -45,7 +45,7 @@
         <div class="filmmaker detail-desc">
             <h2 class="detail-h2">剧照</h2>
             <ul class="items">
-                <li v-for="(item,index) in detail.photos" :key="index" class="ite">
+                <li v-for="(item,index) in detail[10]" :key="index" class="ite">
                     <img height="100%" :src="getImages(item.icon)" alt="">
                     <p>{{item.name}}</p>
                 </li>
@@ -55,7 +55,7 @@
         <div class="filmmaker detail-desc">
             <h2 class="detail-h2">评论</h2>
             <ul class="comment-list" :class="btnType1?'overflow1':''">
-                <li class="" v-for="(item,index) in detail.popular_reviews" :key="index">
+                <li class="" v-for="(item,index) in detail[11]" :key="index">
                     <div class="desc">
                         <img :src="getImages(item.author.avatar)" alt="zing">
                         <div class="user-info">
@@ -85,11 +85,20 @@ export default {
         }
     },created(){
         let id = this.$route.query.id;
-        let url = '/v2/movie/subject/'+id;
-        this.axios.get(url)
+        this.axios.get('./detail.json')
        .then(res=>{
-        //    console.log(res.data)s
-           this.detail=res.data;
+        //    console.log(res.data)
+           this.detail           
+            //正则表达式
+            let len = res.data
+            let reg = new RegExp(id);
+            for(var i=0;i<len.length;i++){
+                //如果字符串中不包含目标字符会返回-1
+                if(len[i][12].match(reg)){
+                    this.detail=len[i];                         
+                }              
+            }
+            // console.log(this.detail)
        });   
     },methods:{
          getImages( _url ){

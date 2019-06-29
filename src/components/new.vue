@@ -12,14 +12,14 @@ export default {
         return{
             newlist:[],
             first:'即将上映',
-            url:'/v2/movie/coming_soon'
+            url:'./new.json'
         }
     },
-    created(){
-       this.axios.get(this.url+'?start=0&count=10')
+    created(){//this.url+'?start=0&count=10'
+       this.axios.get(this.url)
        .then(res=>{
         //    console.log(res.data.subjects)
-           this.newlist=res.data.subjects;
+           this.newlist=res.data;
        });       
     },methods:{
        

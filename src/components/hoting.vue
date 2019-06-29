@@ -13,15 +13,16 @@ export default {
         return{
             hotlist:[],
             first:'影院热映',
-            url:'/v2/movie/in_theaters'
+            url:'./hoting.json'
         }
     },
-    created(){
-       this.axios.get(this.url+'?start=0&count=10')
-       .then(res=>{
-        //    console.log(res.data.subjects)
-           this.hotlist=res.data.subjects;
-       });       
+    created(){  //this.url+'?start=0&count=10'
+        
+        this.axios.get(this.url) 
+        .then(res=>{
+           this.hotlist=res.data;
+        });   
+        
     },methods:{
        
     },mounted(){

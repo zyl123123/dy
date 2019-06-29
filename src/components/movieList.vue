@@ -3,17 +3,17 @@
         <h3 class="title-header">{{title}} <span class="more" @click="$router.push({path:'more',query:{url:url}})">更多</span></h3>
         <div class="section-content">
             <ul class="row items">          
-                <li class="item item__movie" v-for="(itemList,index) in list" :key="index" @click="$router.push({path:'detail',query:{id:itemList.id}})">                    
+                <li class="item item__movie" v-for="(itemList,index) in list" :key="index" v-show="index<10" @click="$router.push({path:'detail',query:{id:itemList[5]}})">                    
                     <div class="item-poster">
-                        <img width="100%" height="100%" alt="" v-lazy='getImages(itemList.images.medium)' >
+                        <img width="100%" height="100%" alt="" v-lazy='getImages(itemList[0])' >
                     </div>
-                    <div class="item-title van-ellipsis">{{itemList.title}}</div>
+                    <div class="item-title van-ellipsis">{{itemList[1]}}</div>
                     <div class="item-rating">
                         <div class="rank">
                             <span class="rating-stars" >
-                                <start :value='itemList.rating.stars/10'></start>
+                                <start :value='itemList[2]*5/10'></start>
                             </span>
-                            <span>{{itemList.rating.average}}</span>
+                            <span>{{itemList[4]}}</span>
                         </div>
                     </div>                  
                 </li>
@@ -29,7 +29,6 @@ export default {
     name:'movieList',
     data(){
         return{
-
         }
     },props:['title','list','url']
     ,components:{
@@ -98,7 +97,7 @@ export default {
         vertical-align: top;
         width: 100px;
         text-align: center;
-        margin-left: 0.48rem;
+        margin-right: 0.48rem;
     }
     .item-poster {
         width: 100%;

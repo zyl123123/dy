@@ -12,18 +12,13 @@ export default {
         return{
             recommend:[],
             first:'口碑推荐',
-            url:'/v2/movie/weekly'
+            url:'./recommend.json'
         }
     },
-    created(){
-       this.axios.get(this.url+'?start=0&count=10')
+    created(){//this.url+'?start=0&count=10'
+       this.axios.get(this.url)
        .then(res=>{
-           let list = res.data.subjects;
-           let arr = [];
-           for(let i=0;i<list.length;i++){
-               arr.push(list[i].subject)
-           }
-           this.recommend=arr;
+           this.recommend=res.data;
        });       
     },methods:{
        

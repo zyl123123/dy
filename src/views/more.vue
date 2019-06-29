@@ -16,19 +16,11 @@ export default {
     },
     created(){
         let url = this.$route.query.url
-        this.axios.get(url+'?start=0&count=1000')
+        // console.log(url)
+        this.axios.get(url)
        .then(res=>{
-        //    console.log(res.data.subjects)
-            if(url=='/v2/movie/weekly'){
-                let list = res.data.subjects;
-                let arr = [];
-                for(let i=0;i<list.length;i++){
-                    arr.push(list[i].subject)
-                }
-                this.list=arr;
-            }else{
-                this.list=res.data.subjects;
-            }           
+        //    console.log(res.data.subjects)            
+        this.list=res.data;
        }); 
     },
     components:{

@@ -2,27 +2,27 @@
     <ul>
         <li class='movie' v-for="(item,index) in list" :key="index">
             <!-- 电影图片 -->
-            <img class='movie-img' :src="getImages(item.images.large)">
+            <img class='movie-img' :src="getImages(item[0])">
             <!-- 电影介绍 -->
             <div class='movie-info'>
                 <!-- 标题 -->
-                <div class='movie-title van-ellipsis'>{{item.title}}</div>
+                <div class='movie-title van-ellipsis'>{{item[1]}}</div>
                 <!-- 评分 -->
                 <div>
                     观众评分
-                    <span class='movie-score'>{{item.rating.average}}分</span>
+                    <span class='movie-score'>{{item[2]}}分</span>
                 </div>
                 <!-- 主演：多位 -->
                 <div class="overflow">
                     主演：
                     
-                    <span v-for='(item,index) in item.casts' :key='index'>{{item.name_en}}({{item.name}})、</span>
+                    <span v-for='(item,index) in item[3]' :key='index'>{{item.name_en}}({{item.name}})、</span>
                    
                 </div>
                 <!-- 年份 -->
-                <div class="">年份：{{item.mainland_pubdate}}</div>
+                <div class="">年份：{{item[4]}}</div>
                 <!-- 按钮 -->
-                <button class='movie-comment' @click="$router.push({path:'detail',query:{id:item.id}})">详情</button>
+                <button class='movie-comment' @click="$router.push({path:'detail',query:{id:item[5]}})">详情</button>
             </div>
         </li>
     </ul>
@@ -32,7 +32,7 @@ export default {
     name:'moreList',
     data(){
         return{
-
+           
         }
     },
     props:['list'],
